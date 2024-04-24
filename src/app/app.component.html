@@ -1,3 +1,28 @@
 
-<router-outlet></router-outlet>
-<>
+<p>
+    <mat-toolbar>
+      <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span> <button mat-button routerLink="./inicio">TRENGYM </button></span>
+      <span class="example-spacer"></span>
+      <span><button mat-button routerLink="./productos">productos</button></span>
+      <span class="example-spacer">
+      
+      </span>
+
+      <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+        <mat-icon>favorite</mat-icon>
+      </button>
+      <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+        <mat-icon>share</mat-icon>
+      </button>
+    </mat-toolbar>
+  </p>
+<router-outlet>  </router-outlet>
+
+<footer class="footer mt-auto py-3 bg-body-tertiary">
+    <div class="container">
+      <span class="text-body-secondary">Place sticky footer content here.</span>
+    </div>
+  </footer>
