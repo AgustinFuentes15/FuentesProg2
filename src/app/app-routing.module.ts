@@ -12,6 +12,9 @@ const routes: Routes = [
 // then es una funcion asincronica que espera uns configuracion del exterior y lo que hace es "este bien o mal nos va a devolver algo"
 {path:"", loadChildren:()=>import('./modules/inicio/inicio.module').then(m=>m.InicioModule)
   },
+  {path:"", loadChildren:()=>import('./modules/producto/producto.module').then(m=>m.ProductoModule)
+}
+
 ];
 
 @NgModule({
