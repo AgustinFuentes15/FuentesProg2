@@ -1,11 +1,16 @@
-.container{
+.container {
     display: flex;
-    padding: 10px;
+    
+    align-items: center;
+    padding: 50px;
     text-align: center;
     justify-content: center;
 }
-
-.boton{
+.row{
+    display: flex;
+    flex-direction: column;
+}
+.boton {
     width: 120px;
     margin: auto;
 }

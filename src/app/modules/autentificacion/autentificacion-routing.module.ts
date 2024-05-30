@@ -5,6 +5,7 @@ import { RegistroComponent } from './registro/registro.component';
 import { InicioSesionComponent } from './inicio-sesion/inicio-sesion.component';
 
 
+
 const routes: Routes = [
   {
     path:"registro",component:RegistroComponent
