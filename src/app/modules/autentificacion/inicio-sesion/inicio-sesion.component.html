@@ -4,18 +4,12 @@
 
 
 
-<mat-form-field appearance="fill">
-    <mat-label>Ingrese su nombre de usuario</mat-label>
-    <!-- directiva ngModel nos conecta de forma bidireccional como un formulario  -->
-    <input [(ngModel)]="sesion" matInput placeholder="Ej:Pepe" required>
-    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
 
-  </mat-form-field>
 
 
   <mat-form-field appearance="fill">
     <mat-label>Direccion de correo electronico</mat-label>
-    <input [(ngModel)]="usuarios.email" matInput placeholder="gonzacofrescc@gmail.com" required>
+    <input  [(ngModel)]="" matInput placeholder="gonzacofrescc@gmail.com" required>
 
   </mat-form-field>
 
@@ -23,7 +17,7 @@
 
   <mat-form-field>
     <mat-label>Enter your password</mat-label>
-    <input [(ngModel)]="usuarios.password" matInput [type]="hide ? 'password' : 'text'" #input minlength="6" required>
+    <input matInput [type]="hide ? 'password' : 'text'" #input minlength="6" required>
     <button class="boton" mat-icon-button matSuffix (click)="hide=!hide" [attr.aria-label]="'Hide password'"
       [attr.aria-pressed]="hide">
       <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -34,9 +28,9 @@
 
 
 
-  <button mat-raised-button color="primary" class="boton" (click)="Inicio()">
+   <button mat-raised-button color="primary" class="boton" (click)="buscar()"> 
     Iniciar
-  </button>
+  </button> 
 
 
 

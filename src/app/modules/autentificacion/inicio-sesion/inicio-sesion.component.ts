@@ -7,9 +7,15 @@ import { Usuario } from 'src/app/models/usuario';
   styleUrls: ['./inicio-sesion.component.css']
 })
 export class InicioSesionComponent {
-public sesion:Usuario[]
-constructor(){
-this.sesion=
+public colecciones:Usuario[]=[]
+
+
+
+
+
+
+hide = true;
+coleccion=
 [
   {
   uid: 1,
@@ -27,7 +33,25 @@ this.sesion=
     password:"654321",
     rol:"usuario"
     }
+
 ]
+console.log(this.coleccion)
 }
+loginMail: string = ""
+  loginPassword: string = ""
+buscar() {
+  const usuarioEncontrado = this.coleccion.find((nombre) => nombre.email === this.loginMail && nombre.password)
+  console.log(usuarioEncontrado)
+  if (usuarioEncontrado) {
+    alert('Bienvenido ' + usuarioEncontrado.nombre)
+  } else {
+    alert('Inicio de sesion fallido')
+  }
 }
+  
+}
+
+
+
+
 
