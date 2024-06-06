@@ -1,5 +1,5 @@
 <div class="container">
-<div class="row">
+<div class="row" >
 <h1>Inicio de Sesión</h1>
 
 
@@ -9,7 +9,8 @@
 
   <mat-form-field appearance="fill">
     <mat-label>Direccion de correo electronico</mat-label>
-    <input  [(ngModel)]="" matInput placeholder="gonzacofrescc@gmail.com" required>
+    
+    <input  [(ngModel)]="this.loginMail" matInput placeholder="gonzacofrescc@gmail.com" required>
 
   </mat-form-field>
 
@@ -17,7 +18,7 @@
 
   <mat-form-field>
     <mat-label>Enter your password</mat-label>
-    <input matInput [type]="hide ? 'password' : 'text'" #input minlength="6" required>
+    <input matInput [type]="hide ? 'password' : 'text'" #input minlength="6" required [(ngModel)]="this.loginPassword">
     <button class="boton" mat-icon-button matSuffix (click)="hide=!hide" [attr.aria-label]="'Hide password'"
       [attr.aria-pressed]="hide">
       <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>

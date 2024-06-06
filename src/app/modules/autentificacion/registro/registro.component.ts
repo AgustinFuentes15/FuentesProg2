@@ -37,8 +37,22 @@ export class RegistroComponent {
 this.coleccionUsuarios.push(credenciales);
 
 
-  console.log(credenciales);
-  console.log(this.coleccionUsuarios);
+  //notificamos al usurio el correcto registro
+alert("registrado correctamente")
+
+  this.limpiarImputs()
+
+  }
+
+  limpiarImputs(){
+    const imputs= {
+      uid:this.usuarios.uid="",
+      nombre: this.usuarios.nombre="",
+      apellido: this.usuarios.apellido="",
+      email: this.usuarios.email="",
+      password: this.usuarios.password="",
+      rol: this.usuarios.rol=""
+    }
  }
 
 
