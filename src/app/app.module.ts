@@ -7,6 +7,15 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './modules/shared/shared.module';
 
+//vinculaciones/ importaciones con firebase           
+import { environment } from 'src/environments/environment';
+import{AngularFireModule} from '@angular/fire/compat'; //ES para el cloud firestore
+import{AngularFireAuthModule}from '@angular/fire/compat/auth'; //es para la autentificacion 
+import {AngularFireStorageModule} from'@angular/fire/compat/storage'; //es para la bd archivos e imagenes 
+
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,7 +25,15 @@ import { SharedModule } from './modules/shared/shared.module';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    SharedModule
+    SharedModule,
+
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule, 
+    AngularFireStorageModule
+
+
+
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
