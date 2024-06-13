@@ -35,11 +35,9 @@ coleccion=
     }
 
 ]
-console.log(this.coleccion)
-}
 loginMail: string = ""
-  loginPassword: string = ""
-buscar() {
+loginPassword: string = ""
+buscar(){
   const usuarioEncontrado = this.coleccion.find((nombre) => nombre.email === this.loginMail && nombre.password)
   console.log(usuarioEncontrado)
   if (usuarioEncontrado) {
@@ -48,8 +46,10 @@ buscar() {
     alert('Inicio de sesion fallido')
   }
 }
-  
 }
+
+  
+
 
 
 
