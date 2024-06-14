@@ -14,4 +14,27 @@ private usuariosCollection:AngularFirestoreCollection<Usuario>
   constructor(private database : AngularFirestore) { 
     this.usuariosCollection=this.database.collection<Usuario>('usuarios');
   }
+
+  agregarUser(usuario:Usuario, id:string){
+    // generamos nueva PROMESA y utiliza los metodos:
+    // RESOLVE:promesa resuelta ->funciona correctamente
+    // REJECT: promesa rechazada -> ocurrió una falla
+
+    return new Promise(async(resolve,reject)=>{
+      //BLOQUE TRY encapsula la logica resuelta
+      try {
+        // const resultado = coleccion de usuarios, envia como documento el UID
+        // y setea la informacion que ingresamos en el registro
+        usuario.uid = id 
+        const resultado =await this.usuariosCollection.doc(id).set(usuario)
+        resolve(resultado)
+        
+
+      }
+      //bloque CATCH que encapsula una falla y la vuelve un error 
+      catch(error){
+        reject(error)
+      }
+    })
+  }
 }

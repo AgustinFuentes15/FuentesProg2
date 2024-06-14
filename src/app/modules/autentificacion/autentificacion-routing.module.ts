@@ -7,9 +7,12 @@ import { InicioSesionComponent } from './inicio-sesion/inicio-sesion.component';
 
 
 const routes: Routes = [
+  //carga común para rootear registro
   {
     path:"registro",component:RegistroComponent
   },
+
+  //carga común parra rootear registro
 {
   path:"inicio-sesion",component:InicioSesionComponent
 }
