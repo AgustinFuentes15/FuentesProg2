@@ -34,7 +34,7 @@ return user.uid
     return this.auth.createUserWithEmailAndPassword(email,password);
   }
 
-  IniciarSesion(email:string, password :string){
+  iniciarSesion(email:string, password :string){
   //validar el email y la contraseña
   return this.auth.signInWithEmailAndPassword(email,password);
   }
