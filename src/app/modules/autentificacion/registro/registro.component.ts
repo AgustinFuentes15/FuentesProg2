@@ -61,7 +61,7 @@ export class RegistroComponent {
 
         //accedemos al servicio de rutas-> metodo navigate
         //metodo NAVIGATE = permite dirigirnos a diferentes viste
-        this.servicioRutas.navigate(['/inicio'])
+        this.servicioRutas.navigate(['/inicioLog'])
       })
           //El metodo CATH toma una falla y le devuelve un error 
           .catch(error => {

@@ -14,3 +14,9 @@
     width: 120px;
     margin: auto;
 }
+@media(min-width:300px) and (max-width:700px){
+ 
+   #registroIcon{
+       width: 50px;    
+   }
+}
