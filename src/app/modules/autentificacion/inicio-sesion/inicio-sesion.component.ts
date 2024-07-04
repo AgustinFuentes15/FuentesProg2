@@ -4,7 +4,7 @@ import { Usuario } from 'src/app/models/usuario';
 import { AuthService } from '../services/auth.service';
 import { FirestoreService } from '../../shared/services/firestore.service';
 import { Router } from '@angular/router';
-
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-inicio-sesion',
@@ -39,87 +39,121 @@ export class InicioSesionComponent {
   //   ]
   // }
   //fin local
-  coleccionUsers:Usuario={
+  coleccionUsers: Usuario = {
     uid: "",
     nombre: "",
-     apellido: "",
-     email: "",
-     password: "",
-     rol: ""
+    apellido: "",
+    email: "",
+    password: "",
+    rol: ""
   }
 
-constructor(
-  public servicioAuth:AuthService,
-  public sevicioFirestore:FirestoreService,
-  public servicioRuta:Router 
-  ){}
+  constructor(
+    public servicioAuth: AuthService,
+    public sevicioFirestore: FirestoreService,
+    public servicioRuta: Router
+  ) { }
 
-async iniciarSesion(){
-  const credenciales={
-    email: this.coleccionUsers.email,
-    password: this.coleccionUsers.password
-  }
-  const respuesta= await this.servicioAuth.iniciarSesion(credenciales.email, credenciales.password)
-  .then(respuesta =>{
-alert("se ha logueado con exito")
-this.servicioRuta.navigate(['/inicio'])
+  async iniciarSesion() {
+    const credenciales = {
+      email: this.coleccionUsers.email,
+      password: this.coleccionUsers.password
+    }
+    try {
+      //obtener el user desde la BD -> CLOUD FIRESTORE
+      const userBD = await this.servicioAuth.obtenerUsuario(credenciales.email)
+      //empty referencia a si es vacio y ! si es distinto
+      if (!userBD || userBD.empty) {
+        alert("correo electronico no está registrado ")
+        this.limpiarImputs()
+        return
 
+      }
+      /*
+      primer documento ( registro) en la coleccion de usuarios que se obtiene desde la consulta 
+      */
+      const usuarioDoc = userBD.docs[0]
+          
+/*
+Extraer los datos del documento en forma de un objeto y se especifica como de tipo  
+"Usuario"--> haciendo referencia a nuestra interfaz de Usuario
+*/
 
-
-  })
-  .catch(err => {
-    alert("hubo un problema al iniciar sesión" + err)
-    this.limpiarImputs()
-  })
+      const userData = usuarioDoc.data() as Usuario
+//Hash de la contraseña ingresada por el usuario
+      const hashedPassword=CryptoJS.SHA256(credenciales.password).toString()
+if(hashedPassword !== userData.password){
+  alert("contraseña incorrecta")
+  this.coleccionUsers.password=''
+  return
 }
-   limpiarImputs(){
-   const inputs= {
-    email: this.coleccionUsers.email="",
-     password: this.coleccionUsers.password="",
- 
+const respuesta = await this.servicioAuth.iniciarSesion(credenciales.email, credenciales.password)
+      .then(respuesta => {
+        alert("se ha logueado con exito")
+        this.servicioRuta.navigate(['/inicio'])
+
+
+
+      })
+      .catch(err => {
+        alert("hubo un problema al iniciar sesión" + err)
+        this.limpiarImputs()
+      })
+    } catch(error){
+      this.limpiarImputs()
+     }
+
+
+    
+  }
+  limpiarImputs() {
+    const inputs = {
+      email: this.coleccionUsers.email = "",
+      password: this.coleccionUsers.password = "",
+
     }
 
 
 
 
 
-  //importamos interfaz de usurios e inicializamos vacio
-//coleccionUser va a obtener los valores de mi ngModel
-    
-//creo dos variables que van a almacenar de manera local mi datos obtenidos de la vista a traves de coleccionUsers 
+    //importamos interfaz de usurios e inicializamos vacio
+    //coleccionUser va a obtener los valores de mi ngModel
 
-  // loginMail=this.coleccionUsers.email
-  // loginPassword=this.coleccionUsers.password
+    //creo dos variables que van a almacenar de manera local mi datos obtenidos de la vista a traves de coleccionUsers 
 
-  //creo la funcion buscar la cual funciona así
-  //creamos una variable llamada usuarioEncontrado la cual va a almacenar los Usuarios 
-  //encontrados y comparará los atributos mail y contraseña que se ingresaron desde la vista a traves de comparar las variables loginMail y loginPassword para ver si existe
-  //en find envio usuarioEncontrado de manera completa y ahi comparo lo que necesite. Esto ya que no puedo acceder al objeto completo
-  // buscar() {
-  //   const usuarioEncontrado = this.registrados.find((usuarioEncontrado) => usuarioEncontrado.email === this.loginMail && usuarioEncontrado.password === this.loginPassword) 
-  //   console.log(usuarioEncontrado)
-  //   if (usuarioEncontrado) {
-  //     alert('Bienvenido ' + usuarioEncontrado.nombre)
-   
-  //   } else {
-  //     alert('Inicio de sesion fallido')
-     
-  //   }
-  //    //como tarea terminar de limpiar los imputs
-  // }
+    // loginMail=this.coleccionUsers.email
+    // loginPassword=this.coleccionUsers.password
+
+    //creo la funcion buscar la cual funciona así
+    //creamos una variable llamada usuarioEncontrado la cual va a almacenar los Usuarios 
+    //encontrados y comparará los atributos mail y contraseña que se ingresaron desde la vista a traves de comparar las variables loginMail y loginPassword para ver si existe
+    //en find envio usuarioEncontrado de manera completa y ahi comparo lo que necesite. Esto ya que no puedo acceder al objeto completo
+    // buscar() {
+    //   const usuarioEncontrado = this.registrados.find((usuarioEncontrado) => usuarioEncontrado.email === this.loginMail && usuarioEncontrado.password === this.loginPassword) 
+    //   console.log(usuarioEncontrado)
+    //   if (usuarioEncontrado) {
+    //     alert('Bienvenido ' + usuarioEncontrado.nombre)
+
+    //   } else {
+    //     alert('Inicio de sesion fallido')
+
+    //   }
+    //    //como tarea terminar de limpiar los imputs
+    // }
 
 
 
-  // limpiarImputs(){
-  //   const inputs= {
-  //     uid:this.coleccionUsers.uid="",
-  //     nombre: this.coleccionUsers.nombre="",
-  //     apellido: this.coleccionUsers.apellido="",
-  //     email: this.coleccionUsers.email="",
-  //     password: this.coleccionUsers.password="",
-  //     rol: this.coleccionUsers.rol=""
-  //   }
-}
+    // limpiarImputs(){
+    //   const inputs= {
+    //     uid:this.coleccionUsers.uid="",
+    //     nombre: this.coleccionUsers.nombre="",
+    //     apellido: this.coleccionUsers.apellido="",
+    //     email: this.coleccionUsers.email="",
+    //     password: this.coleccionUsers.password="",
+    //     rol: this.coleccionUsers.rol=""
+    //   }
+  }
 
 
 

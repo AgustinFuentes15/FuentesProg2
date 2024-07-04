@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 //servicio de Firestore
 import { FirestoreService } from '../../shared/services/firestore.service';
 
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-registro',
@@ -57,11 +58,11 @@ export class RegistroComponent {
     const respuesta = await this.servicioAuth.registrar(credenciales.email, credenciales.password)
       //El metodo then nos devuelve la respuesta esperada por la promesa 
       .then(respuesta => {
-        alert(" ha agregado un usuario con éxito")
-
+        alert("se ha logueado con éxito")
+        this.servicioRutas.navigate(['/inicio'])
         //accedemos al servicio de rutas-> metodo navigate
         //metodo NAVIGATE = permite dirigirnos a diferentes viste
-        this.servicioRutas.navigate(['/inicioLog'])
+       
       })
           //El metodo CATH toma una falla y le devuelve un error 
           .catch(error => {
@@ -72,16 +73,27 @@ export class RegistroComponent {
           const uid =await this.servicioAuth.obtenerUid();
           //le envio el uid
           this.usuarios.uid=uid
+          /*
+           SHA es un algoritmo de hashing seguro que toma una entrada (en este caso la
+           contraseña) y produce una cadena de caracteres HEXADEDIMAL que representa su HASH
+          toString()convierte el resultado del hash en una cadena de caracteres legible
+          */
+              this.usuarios.password=CryptoJS.SHA256(this.usuarios.password).toString()
+          //guarda la info del usuario en la coleccion
           this.guardarUser()
+
+
+           this.limpiarImputs()
   }
 
 
-  
+  //funcion para guarda un nuevo usuarios
 async guardarUser(){
   this.servicioFirestore.agregarUser(this.usuarios, this.usuarios.uid)
   .then(res=> {
     console.log(this.usuarios)
   })
+  //encapsula el error
   .catch(err => {
     console.log('error=>', err)
   })
