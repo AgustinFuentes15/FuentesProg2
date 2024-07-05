@@ -6,7 +6,7 @@ import { Usuario } from 'src/app/models/usuario';
   providedIn: 'root'
 })
 export class FirestoreService {
-  //definimos una coleccion privada que referemcia a la interfaz usuario
+  //definimos una coleccion privada que referencia a la interfaz usuario
   //va a ser una coleccion Firestore
   //respetará la estructura de datos de la interfaz usuarios
 private usuariosCollection:AngularFirestoreCollection<Usuario>

@@ -73,38 +73,38 @@ export class InicioSesionComponent {
       primer documento ( registro) en la coleccion de usuarios que se obtiene desde la consulta 
       */
       const usuarioDoc = userBD.docs[0]
-          
-/*
-Extraer los datos del documento en forma de un objeto y se especifica como de tipo  
-"Usuario"--> haciendo referencia a nuestra interfaz de Usuario
-*/
+
+      /*
+      Extraer los datos del documento en forma de un objeto y se especifica como de tipo  
+      "Usuario"--> haciendo referencia a nuestra interfaz de Usuario
+      */
 
       const userData = usuarioDoc.data() as Usuario
-//Hash de la contraseña ingresada por el usuario
-      const hashedPassword=CryptoJS.SHA256(credenciales.password).toString()
-if(hashedPassword !== userData.password){
-  alert("contraseña incorrecta")
-  this.coleccionUsers.password=''
-  return
-}
-const respuesta = await this.servicioAuth.iniciarSesion(credenciales.email, credenciales.password)
-      .then(respuesta => {
-        alert("se ha logueado con exito")
-        this.servicioRuta.navigate(['/inicio'])
+      //Hash de la contraseña ingresada por el usuario
+      const hashedPassword = CryptoJS.SHA256(credenciales.password).toString()
+      if (hashedPassword !== userData.password) {
+        alert("contraseña incorrecta")
+        this.coleccionUsers.password = ''
+        return
+      }
+      const respuesta = await this.servicioAuth.iniciarSesion(credenciales.email, credenciales.password)
+        .then(respuesta => {
+          alert("se ha logueado con exito")
+          this.servicioRuta.navigate(['/inicio'])
 
 
 
-      })
-      .catch(err => {
-        alert("hubo un problema al iniciar sesión" + err)
-        this.limpiarImputs()
-      })
-    } catch(error){
+        })
+        .catch(err => {
+          alert("hubo un problema al iniciar sesión" + err)
+          this.limpiarImputs()
+        })
+    } catch (error) {
       this.limpiarImputs()
-     }
+    }
 
 
-    
+
   }
   limpiarImputs() {
     const inputs = {

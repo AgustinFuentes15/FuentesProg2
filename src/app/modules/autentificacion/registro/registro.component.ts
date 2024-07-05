@@ -35,7 +35,7 @@ export class RegistroComponent {
   constructor(
     public servicioAuth: AuthService,//meotodos de autentificacion
     public servicioRutas: Router,//metodo de navegacion
-    public servicioFirestore:FirestoreService //vincula UID con la coleccion
+    public servicioFirestore: FirestoreService //vincula UID con la coleccion
   ) { }
 
 
@@ -62,42 +62,42 @@ export class RegistroComponent {
         this.servicioRutas.navigate(['/inicio'])
         //accedemos al servicio de rutas-> metodo navigate
         //metodo NAVIGATE = permite dirigirnos a diferentes viste
-       
+
       })
-          //El metodo CATH toma una falla y le devuelve un error 
-          .catch(error => {
-            alert("hubo un problema al registrar un nuevo usuario")
-          })
-      
-          //accede a servicio auth
-          const uid =await this.servicioAuth.obtenerUid();
-          //le envio el uid
-          this.usuarios.uid=uid
-          /*
-           SHA es un algoritmo de hashing seguro que toma una entrada (en este caso la
-           contraseña) y produce una cadena de caracteres HEXADEDIMAL que representa su HASH
-          toString()convierte el resultado del hash en una cadena de caracteres legible
-          */
-              this.usuarios.password=CryptoJS.SHA256(this.usuarios.password).toString()
-          //guarda la info del usuario en la coleccion
-          this.guardarUser()
+      //El metodo CATH toma una falla y le devuelve un error 
+      .catch(error => {
+        alert("hubo un problema al registrar un nuevo usuario")
+      })
+
+    //accede a servicio auth
+    const uid = await this.servicioAuth.obtenerUid();
+    //le envio el uid
+    this.usuarios.uid = uid
+    /*
+     SHA es un algoritmo de hashing seguro que toma una entrada (en este caso la
+     contraseña) y produce una cadena de caracteres HEXADEDIMAL que representa su HASH
+    toString()convierte el resultado del hash en una cadena de caracteres legible
+    */
+    this.usuarios.password = CryptoJS.SHA256(this.usuarios.password).toString()
+    //guarda la info del usuario en la coleccion
+    this.guardarUser()
 
 
-           this.limpiarImputs()
+    this.limpiarImputs()
   }
 
 
   //funcion para guarda un nuevo usuarios
-async guardarUser(){
-  this.servicioFirestore.agregarUser(this.usuarios, this.usuarios.uid)
-  .then(res=> {
-    console.log(this.usuarios)
-  })
-  //encapsula el error
-  .catch(err => {
-    console.log('error=>', err)
-  })
-}
+  async guardarUser() {
+    this.servicioFirestore.agregarUser(this.usuarios, this.usuarios.uid)
+      .then(res => {
+        console.log(this.usuarios)
+      })
+      //encapsula el error
+      .catch(err => {
+        console.log('error=>', err)
+      })
+  }
 
   //enviamos los nuevos registros por medie del metodo push a la coleccion 
   // this.coleccionUsuarios.push(credenciales);
