@@ -5,6 +5,7 @@ import { AuthService } from '../services/auth.service';
 import { FirestoreService } from '../../shared/services/firestore.service';
 import { Router } from '@angular/router';
 import * as CryptoJS from 'crypto-js';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-inicio-sesion',
@@ -56,15 +57,23 @@ export class InicioSesionComponent {
 
   async iniciarSesion() {
     const credenciales = {
+      nombre:this.coleccionUsers.nombre,
       email: this.coleccionUsers.email,
       password: this.coleccionUsers.password
     }
+    
     try {
       //obtener el user desde la BD -> CLOUD FIRESTORE
       const userBD = await this.servicioAuth.obtenerUsuario(credenciales.email)
       //empty referencia a si es vacio y ! si es distinto
+  
       if (!userBD || userBD.empty) {
-        alert("correo electronico no está registrado ")
+        Swal.fire({
+          title: "Ups!",
+          text: "el correo electronico no está registrado ",
+          icon: "error"
+        });
+       
         this.limpiarImputs()
         return
 
@@ -87,16 +96,27 @@ export class InicioSesionComponent {
         this.coleccionUsers.password = ''
         return
       }
+    
       const respuesta = await this.servicioAuth.iniciarSesion(credenciales.email, credenciales.password)
         .then(respuesta => {
-          alert("se ha logueado con exito")
+          Swal.fire({
+            title: "Bien hecho",
+
+            text: `hola ${userData.nombre}`,
+            icon: "success"
+          });
+          
           this.servicioRuta.navigate(['/inicio'])
 
 
 
         })
         .catch(err => {
-          alert("hubo un problema al iniciar sesión" + err)
+          Swal.fire({
+            title: "Ups!",
+            text: "hubo un problema al registrar un nuevo usuario",
+            icon: "error"
+          });
           this.limpiarImputs()
         })
     } catch (error) {
