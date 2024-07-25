@@ -21,12 +21,12 @@
     </mat-menu>
     
 <span class="example-spacer"></span>
-<!-- inicio de sesión y formulario de registro -->
+<!--Manejo dek inicio de sesión y formulario de registro y de cerrar sesión -->
 <button mat-icon-button [matMenuTriggerFor]="usuario"><mat-icon>person</mat-icon></button>
 <mat-menu #usuario="matMenu">
-  <button mat-menu-item  routerLink="/registro">Registro</button>
-  <button mat-menu-item routerLink="/inicio-sesion" >Iniciar Sesión</button>
-
+  <button mat-menu-item (click)="iniciar()" *ngIf="logueado" routerLink="/registro">Registro </button>
+  <button mat-menu-item (click)="iniciar()" *ngIf="logueado" routerLink="/inicio-sesion" >Iniciar Sesión</button>
+  <button mat-menu-item (click)="cerrarSesion()" *ngIf="deslogueado" >Cerrar Sesión</button>
 </mat-menu>
 
 
