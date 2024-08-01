@@ -57,7 +57,7 @@ export class InicioSesionComponent {
 
   async iniciarSesion() {
     const credenciales = {
-      nombre:this.coleccionUsers.nombre,
+   
       email: this.coleccionUsers.email,
       password: this.coleccionUsers.password
     }
