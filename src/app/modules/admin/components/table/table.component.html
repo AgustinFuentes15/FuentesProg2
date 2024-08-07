@@ -11,23 +11,11 @@
     </thead>
     <tbody>
         <tr *ngFor="let producto of coleccionProductos">
-            <th scope="row">
-                1
-            </th>
-            <td>
-                <img src="{(produto.img)}" alt="">
-            </td>
-            <td>
-                {{producto.nombre}}
-            </td>
-            <td>
-                {{producto.precio}}
-            </td>
-
-
-            <td>{{producto.tipo}}
-
-            </td>
+            <th scope="row"> 1</th>
+            <td><img src="{(produto.img)}" alt=""></td>
+            <td>{{producto.nombre}}</td>
+            <td>{{producto.precio}}</td>
+            <td>{{producto.tipo}} </td>
 
             <td>
                 <!-- Acciones -->
@@ -43,3 +31,50 @@
         </tr>
     </tbody>
 </table>
+
+<!-- Button para agregar productos -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarProducto">
+    Launch demo modal
+</button>
+
+<!-- Modal para agregar productos -->
+<div class="modal fade" id="agregarProducto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- encabezado -->
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Ingrese un nuevo producto</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div [formGroup]="producto" class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">Ingrese el nombre del producto</label>
+                    <input type="text" class="form-control" formControlName="nombre" placeholder="Ej: proteina star">
+
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Ingrese el precio del producto</label>
+                    <input type="number" class="form-control" formControlName="precio" placeholder="Ej: $35.000">
+
+                    <div class="mb-3">
+                        <label class="form-label">Selecciones una categoria</label>
+                        <select class="form-control " class="form-select" formControlName="tipo"></select>
+                        <option selected>elija una opcion</option>
+                        <option value="accesorios"></option>
+                        <option value="indumentaria"></option>
+                        <option value="suplementos"></option>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Ingrese una imagen</label>
+                        <input type="text" class="form-control" formControlName="imagen" placeholder="Ej: imagen ">
+    
+                    </div>
+                </div>
+                <div class="modal-footer">
+                  
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">guardar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
