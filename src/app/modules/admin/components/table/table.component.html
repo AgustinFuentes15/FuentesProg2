@@ -34,7 +34,7 @@
 
 <!-- Button para agregar productos -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarProducto">
-    Launch demo modal
+    agregar productos
 </button>
 
 <!-- Modal para agregar productos -->
@@ -55,26 +55,28 @@
                 <div class="mb-3">
                     <label class="form-label">Ingrese el precio del producto</label>
                     <input type="number" class="form-control" formControlName="precio" placeholder="Ej: $35.000">
-
-                    <div class="mb-3">
-                        <label class="form-label">Selecciones una categoria</label>
-                        <select class="form-control " class="form-select" formControlName="tipo"></select>
-                        <option selected>elija una opcion</option>
-                        <option value="accesorios"></option>
-                        <option value="indumentaria"></option>
-                        <option value="suplementos"></option>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Ingrese una imagen</label>
-                        <input type="text" class="form-control" formControlName="imagen" placeholder="Ej: imagen ">
-    
-                    </div>
                 </div>
+                <div class="mb-3">
+                    <label class="form-label">Selecciones una categoria</label>
+                    <select class="form-control" class="form-select" formControlName="tipo"></select>
+                    <option selected>elija una opcion</option>
+                    <option value="accesorios"></option>
+                    <option value="indumentaria"></option>
+                    <option value="suplementos"></option>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Ingrese una imagen</label>
+                    <input type="text" class="form-control" formControlName="imagen" placeholder="Ej: imagen ">
+
+                </div>
+
                 <div class="modal-footer">
-                  
-                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">guardar</button>
+
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal"
+                        (click)="agregarProducto()">guardar</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cerrar</button>
                 </div>
             </div>
         </div>
     </div>
+</div>
